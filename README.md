@@ -6,9 +6,6 @@ An enterprise-ready, provider-agnostic hybrid RAG architecture and autonomous ag
 
 ## 🛠️ System Architecture & Data Flow
 
-Use code with caution.[ Ingest Pipeline ] ──► Permanent Cloud Binary Storage ──► [ 📁 Azure Blob Containers ]│[ Chat /ask Query ] ──► Multi-Tenant OData Filter Shield ──► [ 🔍 Azure AI Search Index ]│ (Hybrid Vector + Token)▼[ Clean Data JSON ] ◄── Configurable LLM Factory Engine  ◄── [ 📶 Cross-Encoder Reranker ]
-
-
 1. **Secure Storage Lake:** Raw PDF compliance documents and expense guidelines are streamed directly to **Azure Blob Storage** for permanent cloud archiving.
 2. **Multi-Tenant Ingestion:** Text is extracted, parsed into semantic shards, metadata-tagged with the authenticated user context (`owner_username`), and indexed persistently in **Azure AI Search**.
 3. **Optimized Cloud Retrieval:** Incoming queries use direct Azure Search Client interfaces to fire multi-engine **Hybrid Searches** (Dense Vectors + BM25 Keywords) coupled with strict OData filter constraints (`owner_username eq 'user'`), completely isolating tenant visibility walls.
@@ -18,14 +15,14 @@ Use code with caution.[ Ingest Pipeline ] ──► Permanent Cloud Binary Stora
 
 ---
 
-## ✨ Production Capabilities & Features
+### Features
 
-*   🔀 **Provider-Agnostic LLM Factory:** Swap your core orchestration intelligence instantly across Google Gemini, OpenAI GPT, or Anthropic Claude via environment variables without touching backend code.
-*   🛡️ **Multi-Tenant Security Silos:** Cryptographically signed JWT access handshakes map individual database schemas. Sub-query filters execute directly inside Azure indices, preventing cross-user data exposure.
-*   ⏱️ **Distributed PostgreSQL Rate-Limiting:** Shared transactional database tracking tables run a high-priority token bucket limiter (`max_burst=2`, `refill=0.1/s`) across scaled cloud containers on Render, rendering the system immune to high-speed API resource depletion attacks.
-*   🛑 **Adversarial Input Sanitization:** Intercepts malicious string control command patterns ("ignore previous instructions") at the gateway before text reaches your model pipelines.
-*   📊 **End-to-End Trace Observability:** Every request attaches a unique tracking token ID computing real-time stopwatch metrics, heuristic token usage maps, and true transactional USD costs.
-*   🔧 **Self-Healing Schema Synchronization:** Startup hooks programmatically run raw database updates on boot to add fields (`role`, `is_active`, `category`), preventing application crashes when moving between legacy and updated enterprise tables.
+*   **Provider-Agnostic LLM Factory:** Swap your core orchestration intelligence instantly across Google Gemini, OpenAI GPT, or Anthropic Claude via environment variables without touching backend code.
+*   **Multi-Tenant Security Silos:** Cryptographically signed JWT access handshakes map individual database schemas. Sub-query filters execute directly inside Azure Indices, preventing cross-user data exposure.
+*   **Distributed PostgreSQL Rate-Limiting:** Shared transactional database tracking tables run a high-priority token bucket limiter (`max_burst=2`, `refill=0.1/s`) across scaled cloud containers on Render, mitigating high-speed API resource depletion risks.
+*   **Adversarial Input Sanitization:** Intercepts malicious string control command patterns ("Ignore previous instructions") at the gateway before text reaches your model pipelines.
+*   **End-to-End Trace Observability:** Every request attaches a unique tracking token ID computing real-time stopwatch metrics, heuristic token usage maps, and true transactional USD costs.
+*   **Self-Healing Schema Synchronization:** Startup hooks programmatically run raw database updates on boot to add fields (`role`, `is_active`, `category`), preventing application crashes when moving between legacy and updated enterprise tables.
 
 ---
 
@@ -65,7 +62,7 @@ Use code with caution.[ Ingest Pipeline ] ──► Permanent Cloud Binary Stora
 
 ### 1. Clone & Setup Workspace Environment
 ```bash
-git clone https://github.com
+git clone https://github.com/Gallaxz-lab/multi-user-Expense-Tracker-API.git
 cd multi-user-Expense-Tracker-API
 python -m venv venv
 source venv/Scripts/activate  # On Windows
@@ -91,7 +88,7 @@ GEMINI_API_KEY="AIzaSyYourActualGoogleAIStudioKey"
 AZURE_STORAGE_CONNECTION_STRING="DefaultEndpointsProtocol=https;AccountName=..."
 AZURE_STORAGE_CONTAINER_NAME="user-policy-documents"
 
-AZURE_SEARCH_ENDPOINT="https://windows.net"
+AZURE_SEARCH_ENDPOINT="https://<your-service-name>.search.windows.net"
 AZURE_SEARCH_API_KEY="YourSearchPrimaryAdminKey"
 AZURE_SEARCH_INDEX_NAME="enterprise-knowledge-base"
 ```
@@ -100,7 +97,7 @@ AZURE_SEARCH_INDEX_NAME="enterprise-knowledge-base"
 ```bash
 uvicorn app.main:app --reload
 ```
-Navigate your browser window tab directly to `http://127.0.0` to interface with the complete, interactive Swagger UI control dashboard.
+Navigate your browser window tab directly to `http://127.0.0.1:8000/docs` to interface with the complete, interactive Swagger UI control dashboard.
 
 ---
 
