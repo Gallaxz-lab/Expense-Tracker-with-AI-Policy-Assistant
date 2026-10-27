@@ -2,6 +2,8 @@
 
 An enterprise-ready, provider-agnostic hybrid RAG architecture and autonomous agent gateway built with **FastAPI**, **LangChain**, and **LangGraph**. The platform unifies unstructured document intelligence with structured transactional bookkeeping—backed by **Azure Blob Storage**, **Azure AI Search**, and **PostgreSQL**.
 
+<img width="1886" height="2122" alt="Screenshot_27-10-2026_115718_localhost" src="https://github.com/user-attachments/assets/ae354bed-f27c-4836-a365-b9b7616864fb" />
+
 ---
 
 ## 🛠️ System Architecture & Data Flow
